@@ -16,6 +16,7 @@ class PenjualanResource extends JsonResource
     {
         return [
             "id" => encrypt($this->id_nota),
+            "id_nota" => $this->id_nota,
             "tgl" => $this->tgl->format('d-m-Y'),
             "kode_pelanggan" => $this->kode_pelanggan,
             "subtotal" => $this->subtotal,

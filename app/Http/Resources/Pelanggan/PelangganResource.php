@@ -16,6 +16,7 @@ class PelangganResource extends JsonResource
     {
         return [
             "id" => encrypt($this->id_pelanggan),
+            "id_pelanggan" => $this->id_pelanggan,
             "nama" => $this->nama,
             "domisili" => $this->domisili,
             "jenis_kelamin" => $this->jenis_kelamin,

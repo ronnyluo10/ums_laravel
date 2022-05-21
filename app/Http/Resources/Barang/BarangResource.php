@@ -16,6 +16,7 @@ class BarangResource extends JsonResource
     {
         return [
             "id" => encrypt($this->kode),
+            "kode" => $this->kode,
             "nama" => $this->nama,
             "kategori" => $this->kategori,
             "harga" => $this->harga,
