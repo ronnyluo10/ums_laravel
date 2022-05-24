@@ -26,4 +26,9 @@ class Barang extends Model
     {
     	return $this->hasMany(ItemPenjualan::class, 'kode_barang');
     }
+
+    public function scopeListData($query)
+    {  
+        return $query->selectRaw('kode, CONCAT(nama, "-", REPLACE(harga, ".00", "")) AS nama')->orderBy('nama', 'ASC')->pluck('nama', 'kode');
+    }
 }

@@ -16,6 +16,7 @@ class ItemPenjualanResource extends JsonResource
     {
         return [
             "nota" => $this->nota,
+            "nota_value" => encrypt($this->nota),
             "kode_barang" => $this->kode_barang,
             "qty" => $this->qty,
             "created_at" => $this->created_at->format('d-m-Y H:i:s'),

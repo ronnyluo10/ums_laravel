@@ -13,8 +13,6 @@ class BarangRepository implements CRUDInterface
 	public function create(object $request): object
 	{
 		try {
-			// incrementId('brg');
-			// return successResponse();
 			$barang = new Barang;
 			$barang->kode = incrementId('brg');
 			$barang->nama = $request->nama;
@@ -59,7 +57,6 @@ class BarangRepository implements CRUDInterface
 	{
 		try {
 			$model->delete();
-			decrementId('brg');
 
 			return successResponse();
 		} catch (\Exception $e) {

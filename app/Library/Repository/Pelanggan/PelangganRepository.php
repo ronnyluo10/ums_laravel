@@ -57,7 +57,6 @@ class PelangganRepository implements CRUDInterface
 	{
 		try {
 			$model->delete();
-			decrementId('pelanggan');
 
 			return successResponse();
 		} catch (\Exception $e) {

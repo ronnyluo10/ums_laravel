@@ -19,27 +19,16 @@ class Datatables
 	{
 		$request = $this->getRequest();
 		$columns = $request->input("tbody");
-		$relations = $request->input('relations');
 		$sort = $request->input('sort');
 		$offset = $request->input("offset");
-		$relationField = $request->input('relationField');
-		$disableSearch = $request->input('disableSearch');
 		$limit = (int) env('DATATABLES_DEFAULT_LIMIT');
+		$columnIDs = explode(",", env('COLUMN_ID'));
 		$results = [];
 
 		if($search = $request->input("search")) {
-			$builder->where(function($query) use($search, $columns, $relations, $relationField, $disableSearch) {
+			$builder->where(function($query) use($search, $columns) {
 				foreach ($columns as $key => $column) {
-					if($relations && is_array($relations) && array_search($column, $relations) !== false) {
-						$query->orWhereHas($column, function($sql) use($search, $relationField, $column) {
-							$sql->where($relationField[$column], 'LIKE', '%'.$search.'%');
-						});
-					}
-					else {
-						if(empty($disableSearch) || (! empty($disableSearch) && ! in_array($column, $disableSearch))) {
-							$query->orWhere($column, 'LIKE', '%'.$search.'%');	
-						}
-					}
+					$query->orWhere($column, 'LIKE', '%'.$search.'%');	
 				}
 			});
 		}
@@ -47,7 +36,11 @@ class Datatables
 		$totalRow = $builder->count();
 
 		if(! empty($sort) ) {
-			$builder->orderBy($sort[0], $sort[1]);
+			if(in_array($sort[0], $columnIDs)) {
+				$builder->orderByRaw('CAST(substring_index('.$sort[0].',"_",-1) AS UNSIGNED) '.$sort[1]);
+			} else {
+				$builder->orderBy($sort[0], $sort[1]);
+			}
 		}
 
 		if(! is_null($offset) ) {

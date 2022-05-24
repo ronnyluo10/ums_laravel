@@ -33,21 +33,6 @@ class Request
 		return $this->request->input("search");
 	}
 
-	public function relations()
-	{
-		return (array) $this->request->input('relations');
-	}
-
-	public function relationField()
-	{
-		return (array) $this->request('relationField');
-	}
-
-	public function disableSearch()
-	{
-		return (array) $this->request('disableSearch');
-	}
-
 	public function sort()
 	{
 		return (array) $this->request->input("sort");

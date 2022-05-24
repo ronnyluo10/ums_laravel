@@ -19,7 +19,7 @@ class BarangResource extends JsonResource
             "kode" => $this->kode,
             "nama" => $this->nama,
             "kategori" => $this->kategori,
-            "harga" => $this->harga,
+            "harga" => number_format(str_replace(".00", "", $this->harga), 0, "", "."),
             "created_at" => $this->created_at->format('d-m-Y H:i:s'),
             "updated_at" => $this->updated_at->format('d-m-Y H:i:s'),
         ];

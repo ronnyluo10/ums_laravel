@@ -29,15 +29,15 @@ class ItemPenjualanController extends Controller
     	return $this->action->create($request);	
     }
 
-    public function edit(ItemPenjualan $itemPenjualan)
+    public function edit($nota, $kodeBarang)
     {
+        $itemPenjualan = ItemPenjualan::item($nota, $kodeBarang)->first();
     	return successResponse(new ItemPenjualanResource($itemPenjualan));
     }
 
     public function update(UpdateItemPenjualanRequest $request, $nota, $kodeBarang)
     {
     	$itemPenjualan = ItemPenjualan::item($nota, $kodeBarang);
-
     	return $this->action->update($request, $itemPenjualan);
     }
 

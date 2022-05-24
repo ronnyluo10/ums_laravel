@@ -50,3 +50,20 @@ if(! function_exists('decrementId')) {
 		}
 	}
 }
+
+if(! function_exists('createUserToken')) {
+	function createUserToken($user) {
+		return $user->createToken(env('SANCTUM_DEFAULT_NAME'), [
+    		'pelanggan:read', 'pelanggan:create', 'pelanggan:update', 'pelanggan:delete',
+    		'barang:read', 'barang:create', 'barang:update', 'barang:delete',
+    		'penjualan:read', 'penjualan:create', 'penjualan:update', 'penjualan:delete',
+    		'item_penjualan:read', 'item_penjualan:create', 'item_penjualan:update', 'item_penjualan:delete',
+    	]);
+	}
+}
+
+if(! function_exists('deleteCurrentToken')) {
+	function deleteCurrentToken($user) {
+		$user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+	}
+}

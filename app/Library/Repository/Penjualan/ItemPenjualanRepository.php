@@ -65,7 +65,7 @@ class ItemPenjualanRepository implements CRUDInterface
 		
 		try {
 
-			$decrementSubtotal = $this->getSubtotal();
+			$decrementSubtotal = $this->getSubtotal($result);
 
 			$model->update([
 				'kode_barang' => $request->kode_barang,

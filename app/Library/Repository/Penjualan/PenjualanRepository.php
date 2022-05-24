@@ -68,7 +68,7 @@ class PenjualanRepository implements CRUDInterface
 		try {
 			$model->tgl = $request->tgl;
 			$model->kode_pelanggan = $request->pelanggan;
-			$model->subtotal = $request->subtotal;
+			$model->subtotal = str_replace(".", "", $request->subtotal);
 			$model->save();
 
 			return successResponse($model);
@@ -84,8 +84,6 @@ class PenjualanRepository implements CRUDInterface
 		
 		try {
 			$model->delete();
-			
-			decrementId('nota');
 
 			DB::commit();
 
