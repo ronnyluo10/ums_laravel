@@ -22,6 +22,7 @@ class Datatables
 		$sort = $request->input('sort');
 		$offset = $request->input("offset");
 		$limit = (int) env('DATATABLES_DEFAULT_LIMIT');
+		$loadMore = $request->input('loadMore');
 		$columnIDs = explode(",", env('COLUMN_ID'));
 		$results = [];
 
@@ -43,9 +44,13 @@ class Datatables
 			}
 		}
 
-		if(! is_null($offset) ) {
-			$offset = ($offset - 1) * $limit;
-			$builder->offset($offset);
+		if($loadMore) {
+			$limit += $loadMore;
+		} else {
+			if(! is_null($offset) ) {
+				$offset = ($offset - 1) * $limit;
+				$builder->offset($offset);
+			}
 		}
 
 		$builder->limit($limit);

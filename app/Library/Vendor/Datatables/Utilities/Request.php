@@ -42,4 +42,9 @@ class Request
 	{
 		return (int) $this->request->input("offset");
 	}
+
+	public function loadMore()
+	{
+		return (boolean) $this->request->input("loadMore");
+	}
 }
